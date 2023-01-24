@@ -1,4 +1,7 @@
 pipeline {
+  environment {
+    NAMESPACE = "staging"
+  }
   agent any
   stages {
 /*
@@ -14,19 +17,12 @@ pipeline {
     stage('Configure kubectl') {
       steps {
         sh "aws eks --region eu-west-2 update-kubeconfig --name exerciseCluster"
-      }
-    }
-    stage('Create Namespace') {
-      steps {
-        sh "kubectl create ns frontend-namespace"
-        sh "kubectl create ns backend-namespace"
+        sh "kubectl config set-context --current --namespace=${NAMESPACE}"
       }
     }
     stage('Deploy manifests') {
       steps {
-        sh "kubectl config set-context --current --namespace=backend-namespace"
         sh "kubectl apply -f back.yml"
-        sh "kubectl config set-context --current --namespace=frontend-namespace"
         sh "kubectl apply -f front.yml"
         sh "kubectl get services"
       }
