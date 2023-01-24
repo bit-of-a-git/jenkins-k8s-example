@@ -33,6 +33,6 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: htrvolker/python-frontend:blue
+        image: htrvolker/python-frontend:red
         ports:
         - containerPort: 5000
