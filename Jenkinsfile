@@ -17,7 +17,7 @@ pipeline {
     stage('Configure kubectl') {
       steps {
         sh "aws eks --region eu-west-2 update-kubeconfig --name MyDemoCluster"
-        sh "kubectl create ns ${NAMESPACE}"
+        sh "kubectl create ns ${NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -"
         sh "kubectl config set-context --current --namespace=${NAMESPACE}"
       }
     }
