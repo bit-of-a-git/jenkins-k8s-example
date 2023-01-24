@@ -1,0 +1,12 @@
+eksctl create cluster \
+--name exerciseCluster \
+--region eu-west-2 \
+--nodegroup-name exerciseClusterNodes \
+--nodes 8 \
+--nodes-min 5 \
+--nodes-max 10 \
+--node-type t3.medium \
+--with-oidc \
+--ssh-access \
+--ssh-public-key asg-demo-key3 \
+--managed
